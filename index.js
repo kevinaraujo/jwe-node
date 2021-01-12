@@ -273,6 +273,7 @@ app.get('/encrypt-4', async (req, res) =>  {
       };
 
       const hash = returnHash();
+      console.log(hash);
       var key = Buffer.from(hash).toString("base64");
 
     // JWE EXAMPLE
@@ -282,6 +283,8 @@ app.get('/encrypt-4', async (req, res) =>  {
 
     var parsedToken = jwt.parse(token).verify(key);
     console.log('parsedToken', parsedToken);
+    var payload2 = parsedToken.payload;
+    console.log(payload2);
 
     return res.json({ response: 'encrypt-4', token });
 });
