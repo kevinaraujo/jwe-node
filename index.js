@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-//const jwt = require('jsonwebtoken');
+const jwt2 = require('jsonwebtoken');
 require("dotenv-safe").config();
 const fs = require('fs'); 
 
@@ -15,6 +15,7 @@ const {JWE} = require("node-jose");
 const {JWK} = require("node-jose");
 const {JWS} = require("node-jose");
 const {util} = require("node-jose");
+const crypto = require('crypto');
 
 app.get('/', (req, res, next) => {
     
@@ -184,9 +185,7 @@ app.get('/encrypt-2-ok', async (req, res) =>  {
         cpf: 12346
     };
 
-    var buff = Buffer.from(JSON.stringify(json)).toString("base64");
-    console.log('1', buff);
-    
+    var buff = Buffer.from(JSON.stringify(json)).toString("base64");    
 
     var jwe = await jose.JWE.createEncrypt(key).
     update(buff).
@@ -206,11 +205,15 @@ app.get('/encrypt-2-ok', async (req, res) =>  {
         // *  key: Key used to decrypt
         // *  payload: Buffer of the decrypted content
         // *  plaintext: Buffer of the decrypted content (alternate)
+        const decryptedToken = result.plaintext.toString('utf8');
+        const decoded = jwt2.decode(decryptedToken);
+        console.log('decryptedToken',decryptedToken);
+        console.log('decoded',decoded);
 
         var payload = result.plaintext;
         var buf = Buffer.from(payload, 'base64').toString('ascii'); // Ta-da
         var buf2 = jose.util.base64url.decode(payload);
-        console.log(buf2, buf);
+        
     });
 
     return res.json({ response: 'encrypt-2', jwe });
@@ -264,6 +267,8 @@ app.get('/encrypt-3', async (req, res) =>  {
 });
  
 const jwt = require('node-webtokens');
+const base64 = require('base-64');
+
 app.get('/encrypt-4', async (req, res) =>  {
    
     const enc = 'HS256';
@@ -272,7 +277,7 @@ app.get('/encrypt-4', async (req, res) =>  {
         cpf: 410322868777
       };
 
-      const hash = returnHash();
+      var hash = returnHash();
       console.log(hash);
       var key = Buffer.from(hash).toString("base64");
 
@@ -280,7 +285,7 @@ app.get('/encrypt-4', async (req, res) =>  {
     var token = jwt.generate(enc, payload, key);
    // parsedToken = jwt.parse(token).verify(key);
     console.log(token);
-
+    
     var parsedToken = jwt.parse(token).verify(key);
     console.log('parsedToken', parsedToken);
     var payload2 = parsedToken.payload;
@@ -289,15 +294,35 @@ app.get('/encrypt-4', async (req, res) =>  {
     return res.json({ response: 'encrypt-4', token });
 });
 
-function returnHash(){
-    abc = "abcdefghijklmnopqrstuvwxyz1234567890".split("");
-    var token=""; 
-    for(i=0;i<32;i++){
-         token += abc[Math.floor(Math.random()*abc.length)];
-    }
-    return token; //Will return a 32 bit "hash"
+
+const key = "82a645babc5cd41c9a2cb4d0d3ba17ad";
+
+app.get('/encrypt-ok', async (req, res) =>  {
+    const alg = 'dir';
+    const enc = 'A128CBC-HS256';
+    const payload = {
+        name: 'Kevin',
+        cpf: 410322868777
+    };
+
+    const token = jwt.generate(alg, enc, payload, getKey(key));
+
+    return res.json({ response: 'encrypt-ok', token });
+});
+
+app.post('/decrypt-ok', async(req, res) => {
+    const token = req.body.token
+    const parsedToken = jwt.parse(token).verify(getKey(key))
+    const payload = parsedToken.payload
+
+    return res.json({ response: 'decrypt-ok', payload });
+});
+
+const getKey = (key) => {
+    return base64.encode(key)
 }
 
 const server = http.createServer(app); 
 server.listen(3003);
-console.log("Servidor escutando na porta 3002...")
+
+console.log("Servidor escutando na porta 3003...")

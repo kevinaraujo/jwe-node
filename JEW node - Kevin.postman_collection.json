@@ -1,0 +1,70 @@
+{
+	"id": "68b3cb08-9157-7ce8-de70-c3e7504e215f",
+	"name": "JEW node - Kevin",
+	"description": "",
+	"order": [
+		"5bc5d7b0-8f1d-0b27-b781-1f943aa2c514",
+		"e12f81b7-b146-04e0-d686-2e474248a898"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1610546761349,
+	"owner": "2314778",
+	"public": false,
+	"requests": [
+		{
+			"id": "5bc5d7b0-8f1d-0b27-b781-1f943aa2c514",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3003/decrypt-ok",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "68b3cb08-9157-7ce8-de70-c3e7504e215f",
+			"data": [],
+			"dataMode": "raw",
+			"name": "decrypt",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1610546767838,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"token\": \"eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..bOJ-14XFyd_wVro9otlBDA.oFR5fYw_xspVWlwXJsnNiiiPoruj0brkT7tE7mALh2MFVim4y_j5y4wXtPyLnVfssBvfA7oJgs76r8sfN_YHqg.8GdjmCOyVJDVipFRoNGZGg\"\n}"
+		},
+		{
+			"id": "e12f81b7-b146-04e0-d686-2e474248a898",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:3003/encrypt-ok",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "68b3cb08-9157-7ce8-de70-c3e7504e215f",
+			"data": null,
+			"dataMode": "params",
+			"name": "Encrypt",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1610546786916,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
