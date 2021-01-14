@@ -295,7 +295,8 @@ app.get('/encrypt-4', async (req, res) =>  {
 });
 
 
-const key = "82a645babc5cd41c9a2cb4d0d3ba17ad";
+//const key = "mB0BDnc1STM8LO71CC4rdfBbE2Nqra";
+const key = "mB0BDnc1STM8LO71CC4rdfBbE2Nqrajl";
 
 app.get('/encrypt-ok', async (req, res) =>  {
     const alg = 'dir';
