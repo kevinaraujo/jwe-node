@@ -302,8 +302,12 @@ app.get('/encrypt-ok', async (req, res) =>  {
     const alg = 'dir';
     const enc = 'A128CBC-HS256';
     const payload = {
-        name: 'Kevin',
-        cpf: 410322868777
+        token: 'dsads',
+        name: 'Kevin Araújo',
+        client:'23562179000176',
+        cpf: '40613790898',
+        phone: '11967898596',
+        type: 'client'
     };
 
     const token = jwt.generate(alg, enc, payload, getKey(key));
